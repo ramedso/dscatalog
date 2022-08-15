@@ -1,6 +1,7 @@
 package com.atlas.dscatalog.dto;
 
 import com.atlas.dscatalog.entities.Category;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,10 +9,11 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDTO implements Serializable {
     @Serial
-    private static final long serialVersionUID = 5576335041391555097L;
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String name;
