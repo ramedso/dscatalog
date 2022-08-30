@@ -12,7 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import java.util.Optional;
 
 @DataJpaTest
-public class ProductRepositoryTests {
+public class ProductRepositoryTest {
 
     @Autowired
     private ProductRepository repository;
