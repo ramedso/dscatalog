@@ -9,10 +9,10 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
+
 @Data
 @Entity
-@EqualsAndHashCode
+@NoArgsConstructor
 @Table(name = "tb_product")
 public class Product implements Serializable {
 
