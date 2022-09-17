@@ -38,12 +38,12 @@ public class Category implements Serializable {
     }
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         createdAt = Instant.now();
     }
 
     @PreUpdate
-    public void preUp(){
+    public void preUp() {
         updatedAt = Instant.now();
     }
 }

@@ -22,21 +22,21 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column
     private String firstName;
 
     @Column
     private String lastName;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
     @Column
     private String password;
 
     @Setter(AccessLevel.NONE)
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

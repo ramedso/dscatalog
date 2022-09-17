@@ -1,6 +1,5 @@
 package com.atlas.dscatalog.tests;
 
-import com.atlas.dscatalog.dto.CategoryDTO;
 import com.atlas.dscatalog.dto.ProductDTO;
 import com.atlas.dscatalog.entities.Category;
 import com.atlas.dscatalog.entities.Product;
