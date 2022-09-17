@@ -2,6 +2,7 @@ package com.atlas.dscatalog.servicies;
 
 import com.atlas.dscatalog.dto.UserDTO;
 import com.atlas.dscatalog.dto.UserInsertDTO;
+import com.atlas.dscatalog.dto.UserUpdateDTO;
 import com.atlas.dscatalog.entities.User;
 import com.atlas.dscatalog.repositories.RoleRepository;
 import com.atlas.dscatalog.repositories.UserRepository;
@@ -55,7 +56,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) throws ResourceNotFoundException {
+    public UserDTO update(Long id, UserUpdateDTO dto) throws ResourceNotFoundException {
         try {
             User user = userRepository.getById(id);
             dtoToEntity(dto, user);

@@ -1,6 +1,7 @@
 package com.atlas.dscatalog.dto;
 
 import com.atlas.dscatalog.entities.User;
+import com.atlas.dscatalog.servicies.validation.UserInsertValid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

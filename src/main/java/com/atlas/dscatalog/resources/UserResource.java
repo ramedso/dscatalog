@@ -2,6 +2,7 @@ package com.atlas.dscatalog.resources;
 
 import com.atlas.dscatalog.dto.UserDTO;
 import com.atlas.dscatalog.dto.UserInsertDTO;
+import com.atlas.dscatalog.dto.UserUpdateDTO;
 import com.atlas.dscatalog.servicies.UserService;
 import com.atlas.dscatalog.servicies.exceptions.DatabaseException;
 import com.atlas.dscatalog.servicies.exceptions.ResourceNotFoundException;
@@ -43,10 +44,10 @@ public class UserResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id,
-                                          @RequestBody UserDTO dto) throws ResourceNotFoundException {
-        dto = userService.update(id, dto);
-        return ResponseEntity.ok().body(dto);
+    public ResponseEntity<UserDTO> update(@PathVariable Long id,
+                                          @RequestBody @Valid UserUpdateDTO dto) throws ResourceNotFoundException {
+        UserDTO newDto = userService.update(id, dto);
+        return ResponseEntity.ok().body(newDto);
     }
 
     @DeleteMapping(value = "/{id}")
