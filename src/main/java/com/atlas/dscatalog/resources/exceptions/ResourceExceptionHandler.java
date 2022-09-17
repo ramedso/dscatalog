@@ -4,6 +4,7 @@ import com.atlas.dscatalog.servicies.exceptions.DatabaseException;
 import com.atlas.dscatalog.servicies.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -35,6 +36,21 @@ public class ResourceExceptionHandler {
         error.setError("Database exception");
         error.setMessage(e.getMessage());
         error.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ValidationError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        ValidationError error = new ValidationError();
+        error.setTimestamp(Instant.now());
+        error.setStatus(status.value());
+        error.setError("Validation exception");
+        //error.setMessage(e.getMessage()); -> stacktrace verbose message
+        error.setPath(request.getRequestURI());
+
+        e.getBindingResult().getFieldErrors()
+                .forEach(f -> error.addError(f.getField(), f.getDefaultMessage()));
 
         return ResponseEntity.status(status).body(error);
     }

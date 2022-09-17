@@ -25,10 +25,10 @@ public class ProductDTO implements Serializable {
 
     private Long id;
     @Size(min = 5, max = 60, message = "Name must be between 5 up to 60 chars")
-    @NotBlank(message = "Mandatory field")
+    @NotBlank(message = "Mandatory field: name")
     private String name;
     private String description;
-    @Positive(message = "The field must be positive")
+    @Positive(message = "The price must be positive")
     private Double price;
     private String imgUrl;
     @PastOrPresent(message = "The date cannot be future ")
