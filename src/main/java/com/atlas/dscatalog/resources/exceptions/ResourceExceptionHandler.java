@@ -46,7 +46,7 @@ public class ResourceExceptionHandler {
         error.setTimestamp(Instant.now());
         error.setStatus(status.value());
         error.setError("Validation exception");
-        //error.setMessage(e.getMessage()); -> stacktrace verbose message
+        error.setMessage(e.getMessage()); // stacktrace verbose message
         error.setPath(request.getRequestURI());
 
         e.getBindingResult().getFieldErrors()
