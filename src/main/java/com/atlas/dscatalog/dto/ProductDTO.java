@@ -5,6 +5,10 @@ import com.atlas.dscatalog.entities.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
@@ -20,10 +24,14 @@ public class ProductDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+    @Size(min = 5, max = 60, message = "Name must be between 5 up to 60 chars")
+    @NotBlank(message = "Mandatory field")
     private String name;
     private String description;
+    @Positive(message = "The field must be positive")
     private Double price;
     private String imgUrl;
+    @PastOrPresent(message = "The date cannot be future ")
     private Instant date;
 
     private List<CategoryDTO> categories = new ArrayList<>();

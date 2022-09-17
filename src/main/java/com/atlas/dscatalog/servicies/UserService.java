@@ -1,9 +1,7 @@
 package com.atlas.dscatalog.servicies;
 
-import com.atlas.dscatalog.dto.RoleDTO;
 import com.atlas.dscatalog.dto.UserDTO;
 import com.atlas.dscatalog.dto.UserInsertDTO;
-import com.atlas.dscatalog.entities.Role;
 import com.atlas.dscatalog.entities.User;
 import com.atlas.dscatalog.repositories.RoleRepository;
 import com.atlas.dscatalog.repositories.UserRepository;

@@ -1,9 +1,6 @@
 package com.atlas.dscatalog.entities;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -11,7 +8,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_user")
@@ -32,7 +30,6 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
 
-    @Column
     private String password;
 
     @Setter(AccessLevel.NONE)
