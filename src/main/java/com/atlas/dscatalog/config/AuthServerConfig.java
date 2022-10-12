@@ -29,7 +29,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private String clientSecret;
 
     @Value("${jwt.duration}")
-    private String duration;
+    private Integer duration;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -55,11 +55,11 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
-                .withClient("myApp")
-                .secret(passwordEncoder.encode("123"))
+                .withClient(clientId)
+                .secret(passwordEncoder.encode(clientSecret))
                 .scopes("read", "write")
                 .authorizedGrantTypes("password")
-                .accessTokenValiditySeconds(86400);
+                .accessTokenValiditySeconds(duration);
     }
 
     @Override

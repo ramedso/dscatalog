@@ -22,8 +22,8 @@ public class ProductResource {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
-        Page<ProductDTO> list = productService.findAllPaged(pageable);
+    public ResponseEntity<Page<ProductDTO>> findAll(Long categoryId, Pageable pageable) {
+        Page<ProductDTO> list = productService.findAllPaged(categoryId, pageable);
 
         return ResponseEntity.ok().body(list);
     }

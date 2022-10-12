@@ -22,7 +22,7 @@ public class AppConfig {
     public JwtAccessTokenConverter accessTokenConverter(){
         JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
         tokenConverter.setSigningKey(jwtSecret);
-        return  tokenConverter;
+        return tokenConverter;
     }
 
     @Bean
