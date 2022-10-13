@@ -24,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,12 +62,14 @@ public class ProductServiceTest {
         category = Factory.createCategory();
         page = new PageImpl<>(List.of(product));
 
-        when(repository.findAll((Pageable) ArgumentMatchers.any())).thenReturn(page);
+        when(repository.findAll((Pageable) any())).thenReturn(page);
 
-        when(repository.save(ArgumentMatchers.any())).thenReturn(product);
+        when(repository.save(any())).thenReturn(product);
 
         when(repository.findById(existingID)).thenReturn(Optional.of(product));
         when(repository.findById(nonExistingID)).thenReturn(Optional.empty());
+
+        when(repository.find(any(), any(), any())).thenReturn(page);
 
         when(repository.getById(existingID)).thenReturn(product);
         when(repository.getById(nonExistingID)).thenThrow(EntityNotFoundException.class);
@@ -82,12 +85,10 @@ public class ProductServiceTest {
 
     @Test
     public void findAllPagedShouldReturnPage(){
-        Pageable pageable = PageRequest.of(0, 10);
-
-        Page<ProductDTO> result = service.findAllPaged(pageable);
+        Pageable pageable = PageRequest.of(0, 12);
+        Page<ProductDTO> result = service.findAllPaged(0L, "", pageable);
 
         assertNotNull(result);
-        verify(repository, atLeastOnce()).findAll(pageable);
     }
     @Test
     public void deleteShouldDoNothingWhenIdExists() {

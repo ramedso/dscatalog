@@ -2,6 +2,7 @@ package com.atlas.dscatalog.resources;
 
 import com.atlas.dscatalog.dto.ProductDTO;
 import com.atlas.dscatalog.tests.Factory;
+import com.atlas.dscatalog.tests.TokenUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,11 +30,20 @@ public class ProductResourceIntegrationTest {
     private Long existingId;
     private Long nonExistingId;
     private Long countTotalProducts;
+    private String username;
+    private String password;
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private TokenUtil tokenUtil;
+
     @BeforeEach
     void beforeEach() {
+
+        username = "maria@gmail.com";
+        password = "123456";
+
         existingId = 1L;
         nonExistingId = 1000L;
         countTotalProducts = 25L;
@@ -42,14 +52,14 @@ public class ProductResourceIntegrationTest {
     @Test
     @SneakyThrows
     public void findAllShouldReturnSortedPageWhenSortByName() {
-        ResultActions resultActions = mockMvc.perform(
-                get("/products?page=0&size=12&sort=name,asc")
+        ResultActions resultActions =
+                mockMvc.perform(get("/products?page=0&size=12&sort=name,asc")
                         .accept(MediaType.APPLICATION_JSON)
         );
 
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(jsonPath("$.content").exists());
         resultActions.andExpect(jsonPath("$.totalElements").value(countTotalProducts));
+        resultActions.andExpect(jsonPath("$.content").exists());
         resultActions.andExpect(jsonPath("$.pageable.sort.sorted").value(true));
         resultActions.andExpect(jsonPath("$.content[0].name").value("Macbook Pro"));
         resultActions.andExpect(jsonPath("$.content[1].name").value("PC Gamer"));
@@ -61,6 +71,8 @@ public class ProductResourceIntegrationTest {
     @SneakyThrows
     public void updateShouldReturnProductDtoWhenIdExists() {
 
+        String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
+
         ProductDTO productDTO = Factory.createProductDTO();
         String jsonBody = objectMapper.writeValueAsString(productDTO);
 
@@ -68,6 +80,7 @@ public class ProductResourceIntegrationTest {
 
         ResultActions resultActions =
                 mockMvc.perform(put("/products/{id}", existingId)
+                        .header("Authorization", "Bearer " + accessToken)
                         .content(jsonBody)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -82,11 +95,14 @@ public class ProductResourceIntegrationTest {
     @SneakyThrows
     public void updateShouldReturnNotFoundWhenIdNotExists() {
 
+        String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
+
         ProductDTO productDTO = Factory.createProductDTO();
         String jsonBody = objectMapper.writeValueAsString(productDTO);
 
         ResultActions resultActions =
                 mockMvc.perform(put("/products/{id}", nonExistingId)
+                        .header("Authorization", "Bearer " + accessToken)
                         .content(jsonBody)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)

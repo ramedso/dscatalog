@@ -26,8 +26,8 @@ public class ProductResource {
             @RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
             @RequestParam(value = "name", defaultValue = "") String name,
             Pageable pageable) {
-        Page<ProductDTO> list = productService.findAllPaged(categoryId, name.trim(), pageable);
 
+        Page<ProductDTO> list = productService.findAllPaged(categoryId, name.trim(), pageable);
         return ResponseEntity.ok().body(list);
     }
 

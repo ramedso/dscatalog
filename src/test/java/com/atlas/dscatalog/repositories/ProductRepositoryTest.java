@@ -8,10 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @DataJpaTest
+
 public class ProductRepositoryTest {
 
     @Autowired
@@ -52,6 +54,7 @@ public class ProductRepositoryTest {
         product.setId(null);
 
         product = repository.save(product);
+        Optional<Product> result = repository.findById(product.getId());
 
         Assertions.assertNotNull(product.getId());
         Assertions.assertEquals(countTotalProducts + 1, product.getId());
