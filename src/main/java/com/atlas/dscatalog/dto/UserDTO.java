@@ -1,13 +1,11 @@
 package com.atlas.dscatalog.dto;
 
 import com.atlas.dscatalog.entities.User;
-import com.atlas.dscatalog.servicies.validation.UserInsertValid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
